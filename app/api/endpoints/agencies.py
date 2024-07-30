@@ -3,14 +3,15 @@ from typing import Optional
 from fastapi import APIRouter
 
 from app.services.agencies.players import TransfermarktAgencyPlayers
+from app.services.agencies.search import TransfermarktAgencySearch
 
 router = APIRouter()
 
-# @router.get("/search/{agency_name}")
-# def search_agencies(agency_name: str, page_number: Optional[int] = 1) -> dict:
-#     tfmkt = TransfermarktAgencySearch(query=agency_name, page_number=page_number)
-#     found_agencies = tfmkt.search_agency()
-#     return found_agencies
+@router.get("/search/{agency_name}")
+def search_agencies(agency_name: str, page_number: Optional[int] = 1) -> dict:
+    tfmkt = TransfermarktAgencySearch(query=agency_name, page_number=page_number)
+    found_agencies = tfmkt.search_agencies()
+    return found_agencies
 
 # @router.get("/{agency_id}/profile")
 # def get_agency_profile(agency_id: str) -> dict:

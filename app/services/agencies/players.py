@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
-from typing import List
+from typing import List, Optional
 
 from app.services.base import TransfermarktBase
 from app.utils.regex import REGEX_DOB
@@ -35,13 +35,9 @@ class TransfermarktAgencyPlayers(TransfermarktBase):
                 break
         return max_page
 
-    def __get_page_url(self, page_number: int) -> str:
-        """Get the URL for a specific page number."""
-        return f"{self.URL}/page/{page_number}"
-
-    def __parse_agency_players_page(self, page) -> List[str]:
+    def __parse_agency_players_page(self) -> List[str]:
         """Parse players from a single page."""
-        return [extract_from_url(url) for url in page.xpath(Agencies.Players.URLS)]
+        return [extract_from_url(url) for url in self.page.xpath(Agencies.Players.URLS)]
 
     def __parse_agency_players(self) -> List[str]:
         """Parse all players from all pages."""
@@ -49,13 +45,10 @@ class TransfermarktAgencyPlayers(TransfermarktBase):
         all_players = []
 
         for page_num in range(1, max_page + 1):
-            if page_num == 1:
-                page = self.page
-            else:
-                page_url = self.__get_page_url(page_num)
-                page = self.request_url_page(page_url)
+            self.URL = f"{self.URL}/page/{page_num}"
+            self.page = self.request_url_page()
             
-            players = self.__parse_agency_players_page(page)
+            players = self.__parse_agency_players_page()
             all_players.extend(players)
 
         return all_players
