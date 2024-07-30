@@ -101,6 +101,11 @@ class Agencies:
         POSITIONS = "//td[@class='posrela']//tr[2]//text()"
         NATIONALITIES = ".//img//@title"
         MARKET_VALUES = "//td[@class='rechts hauptlink']//text()"
+    
+    class Search:
+        BASE = "//div[@class='box'][h2[contains(text(), 'agents')]]"
+        NAMES = BASE + "//td[@class='hauptlink']//a//@title"
+        URLS = BASE + "//td[@class='hauptlink']//a//@href"
 
 class Clubs:
     class Profile:

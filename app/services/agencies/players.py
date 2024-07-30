@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from datetime import datetime
+from typing import List
 
 from app.services.base import TransfermarktBase
 from app.utils.regex import REGEX_DOB
@@ -24,10 +25,40 @@ class TransfermarktAgencyPlayers(TransfermarktBase):
         self.page = self.request_url_page()
         # self.raise_exception_if_not_found(xpath=Agencies.Players.CLUB_NAME)
 
-    def __parse_agency_players(self) -> list[dict]:
-        players_ids = [extract_from_url(url) for url in self.get_list_by_xpath(Agencies.Players.URLS)]
+    def __get_max_page(self) -> int:
+        """Get the maximum number of pages."""
+        pagination = self.page.xpath("//ul[contains(@class, 'tm-pagination')]//li[contains(@class, 'tm-pagination__list-item')]//a/@title")
+        max_page = 1
+        for item in pagination:
+            if item.startswith("Go to the last page"):
+                max_page = int(item.split()[-1].strip(')'))
+                break
+        return max_page
 
-        return players_ids
+    def __get_page_url(self, page_number: int) -> str:
+        """Get the URL for a specific page number."""
+        return f"{self.URL}/page/{page_number}"
+
+    def __parse_agency_players_page(self, page) -> List[str]:
+        """Parse players from a single page."""
+        return [extract_from_url(url) for url in page.xpath(Agencies.Players.URLS)]
+
+    def __parse_agency_players(self) -> List[str]:
+        """Parse all players from all pages."""
+        max_page = self.__get_max_page()
+        all_players = []
+
+        for page_num in range(1, max_page + 1):
+            if page_num == 1:
+                page = self.page
+            else:
+                page_url = self.__get_page_url(page_num)
+                page = self.request_url_page(page_url)
+            
+            players = self.__parse_agency_players_page(page)
+            all_players.extend(players)
+
+        return all_players
     
     def get_agency_players(self) -> dict:
         self.response["id"] = self.agency_id
