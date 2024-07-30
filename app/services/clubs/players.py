@@ -6,7 +6,6 @@ from app.utils.regex import REGEX_DOB
 from app.utils.utils import clean_response, extract_from_url, safe_regex
 from app.utils.xpath import Clubs
 
-
 @dataclass
 class TransfermarktClubPlayers(TransfermarktBase):
     """

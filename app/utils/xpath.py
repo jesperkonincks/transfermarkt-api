@@ -92,7 +92,6 @@ class Players:
 
 class Agencies:
     class Players:
-        PAST_FLAG = "//div[@id='yw1']//thead//text()"
         CLUB_NAME = "//header//h1//text()"
         CLUB_URL = "//li[@id='overview']//@href"
         PAGE_NATIONALITIES = "//td[img[@class='flaggenrahmen']]"
@@ -100,7 +99,6 @@ class Agencies:
         NAMES = "//td[@class='posrela']//a//text()"
         URLS = "//td[@class='hauptlink']//@href"
         POSITIONS = "//td[@class='posrela']//tr[2]//text()"
-        DOB_AGE = "//div[@id='yw1']//td[3]//text()"
         NATIONALITIES = ".//img//@title"
         MARKET_VALUES = "//td[@class='rechts hauptlink']//text()"
 
