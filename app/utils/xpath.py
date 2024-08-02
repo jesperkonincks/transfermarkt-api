@@ -150,6 +150,14 @@ class Clubs:
         MARKET_VALUES = BASE + "//td[@class='rechts']//text()"
         SQUADS = BASE + "//td[@class='zentriert']//text()"
 
+    class BreakThrough:
+        NAMES = "//td[@class='hauptlink']//a//@title"
+        URLS = "//td[@class='hauptlink']//a//@href"
+        PAGE_NATIONALITIES = "//td[img[@class='flaggenrahmen']]"
+        NATIONALITIES = ".//img//@title"
+        PAGE_CLUBS = "//td[img[@class='tiny_wappen']]"
+        CLUBS = ".//img//@title"
+
     class Players:
         PAST_FLAG = "//div[@id='yw1']//thead//text()"
         CLUB_NAME = "//header//h1//text()"

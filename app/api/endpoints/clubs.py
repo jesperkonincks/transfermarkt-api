@@ -2,6 +2,7 @@ from typing import Optional
 
 from fastapi import APIRouter
 
+from app.services.clubs.breakTrough import TransfermarktClubBreakThrough
 from app.services.clubs.players import TransfermarktClubPlayers
 from app.services.clubs.profile import TransfermarktClubProfile
 from app.services.clubs.search import TransfermarktClubSearch
@@ -28,3 +29,9 @@ def get_club_players(club_id: str, season_id: Optional[str] = None) -> dict:
     tfmkt = TransfermarktClubPlayers(club_id=club_id, season_id=season_id)
     club_players = tfmkt.get_club_players()
     return club_players
+
+@router.get("/{club_id}/break-through")
+def get_break_through_players(club_id: str) -> dict:
+    tfmkt = TransfermarktClubBreakThrough(club_id=club_id)
+    club_break_through_players = tfmkt.get_club_break_through_players()
+    return club_break_through_players
