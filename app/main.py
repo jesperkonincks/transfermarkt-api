@@ -14,7 +14,7 @@ limiter = Limiter(
     default_limits=[settings.RATE_LIMITING_FREQUENCY],
     enabled=settings.RATE_LIMITING_ENABLE,
 )
-app = FastAPI(title="Transfermarkt+ API")
+app = FastAPI(title="Transfermarkt API")
 app.state.limiter = limiter
 app.add_exception_handler(RateLimitExceeded, _rate_limit_exceeded_handler)
 app.add_middleware(SlowAPIMiddleware)

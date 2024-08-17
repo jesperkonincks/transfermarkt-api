@@ -33,28 +33,26 @@ class TransfermarktClubBreakThrough(TransfermarktBase):
             list[dict]: A list of player information dictionaries.
         """
 
+        players_ids = [extract_from_url(url) for url in self.get_list_by_xpath(Clubs.BreakThrough.URLS)]
+        players_names = self.get_list_by_xpath(Clubs.BreakThrough.NAMES)
         page_nationalities = self.page.xpath(Clubs.BreakThrough.PAGE_NATIONALITIES)
         page_clubs = self.page.xpath(Clubs.BreakThrough.PAGE_CLUBS)
 
-        players_ids = [extract_from_url(url) for url in self.get_list_by_xpath(Clubs.BreakThrough.URLS)]
-        players_names = self.get_list_by_xpath(Clubs.BreakThrough.NAMES)
-        players_nationalities = [nationality.xpath(Clubs.BreakThrough.NATIONALITIES) for nationality in page_nationalities]
+        players_nationalities = [
+            nationality.xpath(Clubs.BreakThrough.NATIONALITIES)
+            for nationality in page_nationalities
+        ]
         players_clubs = [club.xpath(Clubs.BreakThrough.CLUBS) for club in page_clubs]
 
         return [
             {
-                "id": idx,
+                "id": player_id,
                 "name": name,
-                "nationality": nationality,
-                "clubs": clubs
             }
-            for idx, name, nationality, clubs in zip(
-                players_ids,
-                players_names,
-                players_nationalities,
-                players_clubs
+            for player_id, name in zip(
+                players_ids, players_names
             )
-        ] 
+        ]
     
     def get_club_break_through_players(self) -> dict:
         """
@@ -68,4 +66,4 @@ class TransfermarktClubBreakThrough(TransfermarktBase):
         self.response["players"] = self.__parse_club_break_trough_players()
         self.response["updatedAt"] = datetime.now()
 
-        return clean_response(self.response0)
+        return clean_response(self.response)
