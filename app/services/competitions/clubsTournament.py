@@ -25,10 +25,13 @@ class TransfermarktTournamentClubs(TransfermarktBase):
             list: A list of dictionaries, where each dictionary contains information about a
                 football club in the tournament, including the club's unique identifier and name.
         """
+        print("parse clubs")
         urls = self.get_list_by_xpath(Tournaments.Clubs.URLS)
+        print(urls)
         names = self.get_list_by_xpath(Tournaments.Clubs.NAMES)
+        print(names)
         ids = [extract_from_url(url) for url in urls]
-
+        print(ids)
         return [{"id": idx, "name": name} for idx, name in zip(ids, names)]
     
 
