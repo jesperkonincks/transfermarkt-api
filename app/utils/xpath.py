@@ -216,7 +216,7 @@ class Competitions:
         URLS = "//td[@class='hauptlink no-border-links']//a[1]//@href"
         NAMES = "//td[@class='hauptlink no-border-links']//a//text()"
 
-class Tournament:
+class Tournaments:
     class Profile:
         URL = "//a[@class='tm-tab']//@href"
         NAME = "//div[@class='data-header__headline-container']//h1//text()"
