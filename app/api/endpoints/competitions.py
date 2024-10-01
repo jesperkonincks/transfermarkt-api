@@ -27,7 +27,7 @@ def get_competition_clubs(competition_id: str, season_id: Optional[str] = None) 
     competition_clubs = tfmkt.get_competition_clubs()
     return competition_clubs
 
-@router.get("/{tournament_id}/clubs")
+@router.get("/{tournament_id}/clubs/tournament")
 def get_tournament_clubs(tournament_id: str) -> dict:
     tfmkt = TransfermarktTournamentClubs(tournament_id=tournament_id)
     tournament_clubs = tfmkt.get_tournament_clubs()
