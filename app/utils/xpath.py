@@ -207,6 +207,19 @@ class Competitions:
         MEAN_MARKET_VALUES = BASE + "//td[@class='zentriert'][4]//text()"
         CONTINENTS = BASE + "//td[@class='zentriert'][5]//text()"
 
+    class Country:
+        BASE = "//div[@class='box'][h2[contains(text(), 'leagues')]]"
+        URLS = "//td//a//@href"
+        NAMES = "//td//a//@title"
+
+    class Clubs:
+        URLS = "//td[@class='hauptlink no-border-links']//a[1]//@href"
+        NAMES = "//td[@class='hauptlink no-border-links']//a//text()"
+
+class Tournament:
+    class Profile:
+        URL = "//a[@class='tm-tab']//@href"
+        NAME = "//div[@class='data-header__headline-container']//h1//text()"
     class Clubs:
         URLS = "//td[@class='hauptlink no-border-links']//a[1]//@href"
         NAMES = "//td[@class='hauptlink no-border-links']//a//text()"
