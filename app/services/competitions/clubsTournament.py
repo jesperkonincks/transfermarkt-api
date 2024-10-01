@@ -8,8 +8,7 @@ from app.utils.xpath import Tournaments
 @dataclass
 class TransfermarktTournamentClubs(TransfermarktBase):
     tournament_id: str = None
-    season_id: str = None
-    URL: str = "https://www.transfermarkt.com/-/gesamtspielplan/pokalwettbewerb/{tournament_id}/plus/?saison_id={season_id}"
+    URL: str = "https://www.transfermarkt.com/-/gesamtspielplan/pokalwettbewerb/{tournament_id}"
 
     def __post_init__(self) -> None:
         """Initialize the TransfermarkttournamentClubs class."""
@@ -42,11 +41,7 @@ class TransfermarktTournamentClubs(TransfermarktBase):
                   participating in the tournament, and the timestamp of when the data was last updated.
         """
         self.response["id"] = self.tournament_id
-        # self.response["name"] = self.get_text_by_xpath("")
-        self.response["seasonID"] = extract_from_url(
-            self.get_text_by_xpath(Tournaments.Profile.URL),
-            "season_id",
-        )
+        self.response["name"] = self.URL
         self.response["clubs"] = self.__parse_tournament_clubs()
         self.response["updatedAt"] = datetime.now()
 
