@@ -15,7 +15,7 @@ class TransfermarktTournamentClubs(TransfermarktBase):
         """Initialize the TransfermarkttournamentClubs class."""
         self.URL = self.URL.format(tournament_id=self.tournament_id, season_id=self.season_id)
         self.page = self.request_url_page()
-        self.raise_exception_if_not_found(xpath=Tournaments.Profile.NAME)
+        # self.raise_exception_if_not_found(xpath=Tournaments.Profile.NAME)
 
     def __parse_tournament_clubs(self) -> list:
         """
@@ -42,7 +42,7 @@ class TransfermarktTournamentClubs(TransfermarktBase):
                   participating in the tournament, and the timestamp of when the data was last updated.
         """
         self.response["id"] = self.tournament_id
-        self.response["name"] = self.get_text_by_xpath(Tournaments.Profile.NAME)
+        # self.response["name"] = self.get_text_by_xpath("")
         self.response["seasonID"] = extract_from_url(
             self.get_text_by_xpath(Tournaments.Profile.URL),
             "season_id",
