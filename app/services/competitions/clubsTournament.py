@@ -12,7 +12,7 @@ class TransfermarktTournamentClubs(TransfermarktBase):
 
     def __post_init__(self) -> None:
         """Initialize the TransfermarkttournamentClubs class."""
-        self.URL = self.URL.format(tournament_id=self.tournament_id, season_id=self.season_id)
+        self.URL = self.URL.format(tournament_id=self.tournament_id)
         self.page = self.request_url_page()
         # self.raise_exception_if_not_found(xpath=Tournaments.Profile.NAME)
 
