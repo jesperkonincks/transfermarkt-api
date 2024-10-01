@@ -221,8 +221,8 @@ class Tournaments:
         URL = "//a[@class='tm-tab']//@href"
         NAME = "//div[@class='data-header__headline-container']//h1//text()"
     class Clubs:
-        URLS = "//td[@class='no-border-links hauptlin']//a[1]//@href"
-        NAMES = "//td[@class='no-border-links hauptlin']//a//text()"
+        URLS = "//td[@class='no-border-links hauptlink']//a[1]//@href"
+        NAMES = "//td[@class='no-border-links hauptlink']//a//text()"
 
 
 class Pagination:
